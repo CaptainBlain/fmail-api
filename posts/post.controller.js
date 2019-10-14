@@ -6,7 +6,7 @@ const postService = require('./post.service');
 router.post('/create', create);
 
 router.get('/getForOwner', getForOwner);
-//router.get('/:id', getById);
+router.get('/getVoted', getVoted);
 
 router.get('/getAll', getAll);
 
@@ -34,6 +34,12 @@ function getAll(req, res, next) {
 
 function getForOwner(req, res, next) {
     postService.getForOwner(req.query)
+        .then(business => business ? res.json(business) : res.sendStatus(404))
+        .catch(err => next(err));
+}
+
+function getVoted(req, res, next) {
+    postService.getVoted(req.query)
         .then(business => business ? res.json(business) : res.sendStatus(404))
         .catch(err => next(err));
 }

@@ -10,7 +10,7 @@ const schema = new Schema({
     //category:  CategorySchema ,
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 
-    votes: [{ type: String }],
+    votes: [{ type: Schema.Types.ObjectId, ref: 'User'}],
     createdDate: { type: Date, default: Date.now },
     updatedDate: { type: Date, default: Date.now }
 });

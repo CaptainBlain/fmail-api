@@ -7,6 +7,7 @@ module.exports = {
     getAll,
     getById,
     getForOwner,
+    getVoted,
     create,
     vote,
     unvote,
@@ -124,18 +125,88 @@ async function getForOwner(params) {
     //return await Post.find({owner: {$in:id}}).select('-hash');
 }
 
+async function getVoted(params) {
+
+    if (!params.userId) {
+        throw "Owner required";
+    }
+
+    const user = await User.findById(params.userId);
+    if (!user) {
+        throw "User not found";
+    }
+
+    let page = params.page
+    let limit = 50
+
+    let postsArray = Post.find()
+        .where('votes').in(user)
+        .populate('owner','-hash -_id -__v -starred -createdDate')
+        .limit(limit)
+        .skip(limit*page)
+        .sort({createdDate: 'desc'})
+        .select('-hash -__v -updatedDate ')
+
+    /*let khb = []
+    await postsArray.forEach(function(post) {
+        khb.push(post.getPost())
+        console.log("Return: ", post.comments.size)
+        return post.getPost()
+    })*/
+
+    return postsArray
+
+
+}
+
 async function vote(params) {
 
-    const post = await Post.find({ id: params.post});
-    post.votes.push(params.user)
+    console.log(params)
+
+    if (!params.owner) {
+        throw "Owner required";
+    }
+    if (!params.post) {
+        throw "Post required";
+    }
+
+    const user = await User.findById(params.owner);
+    if (!user) {
+        throw "User not found";
+    }
+
+    const alreadyVotedPost = await Post.findById(params.post).where('votes').in(user);
+    if (alreadyVotedPost) {
+        throw "Already starred"
+    }
+
+    const post = await Post.findById(params.post);
+    if (!post) {
+        throw "Post not found";
+    }
+    post.votes.push(user)
     await post.save()
 
 }
 
 async function unvote(params) {
 
+    if (!params.owner) {
+        throw "Owner required";
+    }
+    if (!params.post) {
+        throw "Post required";
+    }
+
+    const user = await User.findById(params.owner);
+    if (!user) {
+        throw "User not found";
+    }
     const post = await Post.findById(params.post);
-    post.votes.pop(params.user)
+    if (!post) {
+        throw "Post not found";
+    }
+    post.votes.pop(user)
     await post.save()
 
 }
