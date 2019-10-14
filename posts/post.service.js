@@ -96,9 +96,32 @@ async function getById(id) {
 
 async function getForOwner(params) {
 
-    console.log(params.id)
+    console.log(params.userId)
 
-    return await Post.find({owner: {$in:params.id}}).select('-hash');
+    let page = params.page
+
+    let limit = 50
+
+    let postsArray = await Post.find({owner: {$in:params.userId}})
+        .populate('owner','-hash -_id -__v -starred -createdDate')
+        .limit(limit)
+        .skip(limit*page)
+        .sort({createdDate: 'desc'})
+        .select('-hash -__v -updatedDate ')
+
+    //let count = await Post.countDocuments({}, function (err, count) { return count });
+    //postsArray.push({"pages":Math.ceil(count/limit)})
+
+    let khb = []
+    await postsArray.forEach(function(post) {
+        khb.push(post.getPost())
+        console.log("Return: ", post.comments.size)
+        return post.getPost()
+    })
+
+    return khb
+
+    //return await Post.find({owner: {$in:id}}).select('-hash');
 }
 
 async function vote(params) {
