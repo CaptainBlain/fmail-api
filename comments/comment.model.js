@@ -8,7 +8,8 @@ const schema = new Schema({
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     subject: { type: String, required: false },
     content: { type: String, required: false },
-    votes: { type: Number },
+    votes: { type: Schema.Types.ObjectId, ref: 'User' },
+    level: { type: Number },
     createdDate: { type: Date, default: Date.now },
     updatedDate: { type: Date, default: Date.now }
 });

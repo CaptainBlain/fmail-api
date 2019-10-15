@@ -81,6 +81,7 @@ async function create(params) {
         if (!post) {
             throw "Post not found";
         }
+        comment.level = 0
         comment.post = post
         let user = await User.findById(post.owner).select('username')
         comment.to = user.username
@@ -102,6 +103,7 @@ async function create(params) {
             throw "Comment not found";
         }
         let user = await User.findById(parentComment.owner).select('username')
+        comment.level = parentComment.level + 1
         comment.to = user.username
         parentComment.comments.push(comment.id)
         await parentComment.save()

@@ -22,6 +22,12 @@ function create(req, res, next) {
         .catch(err => next(err));
 }
 
+function onComment(req, res, next) {
+    commentsService.create(req.body)
+        .then((business) => res.json(business))
+        .catch(err => next(err));
+}
+
 //Gets
 function getForPost(req, res, next) {
     commentsService.getForPost(req.params.id)
