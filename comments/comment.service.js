@@ -27,12 +27,12 @@ async function getForPost(id) {
 
 async function getForComment(id) {
 
-    const comment = await Comment.findById(id).select('-hash')
+    const comment = await Comment.findById(id).select('-hash').populate({ path: 'comments', populate: { path:'owner', model:'User', select: 'username'}, model: Comment });
 
     if (!comment)
         throw "Comment not found"
 
-    return await Comment.find({comment: comment._id}).select('-hash -__v').populate('owner', 'username')
+    return comment
 
 }
 
@@ -42,7 +42,7 @@ async function getAll() {
 
 
 async function getById(id) {
-    return await Comment.findById(id).select('-hash -__v');
+    return await Comment.findById(id).select('-hash -__v').populate('owner', 'username');;
 }
 
 async function getForOwner(params) {

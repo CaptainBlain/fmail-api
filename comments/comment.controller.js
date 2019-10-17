@@ -8,6 +8,7 @@ router.post('/create', create);
 router.get('/getForOwner', getForOwner);
 router.get('/:id', getById);
 router.get('/getForPost/:id', getForPost);
+router.get('/getForComment/:id', getForComment);
 router.get('/getAll', getAll);
 
 router.post('/apply', apply);
@@ -31,6 +32,11 @@ function onComment(req, res, next) {
 //Gets
 function getForPost(req, res, next) {
     commentsService.getForPost(req.params.id)
+        .then(posts => posts ? res.json(posts) : res.sendStatus(404))
+        .catch(err => next(err));
+}
+function getForComment(req, res, next) {
+    commentsService.getForComment(req.params.id)
         .then(posts => posts ? res.json(posts) : res.sendStatus(404))
         .catch(err => next(err));
 }
