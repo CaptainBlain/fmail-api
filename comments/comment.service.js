@@ -88,9 +88,6 @@ async function create(params) {
         comment.to = user.username
     }
 
-    //Save the comment
-    const savedComment = await comment.save()
-
     //Push the comment on to the post
     if (params.post) {
         post.comments.push(savedComment)
@@ -100,6 +97,7 @@ async function create(params) {
     //Push the comment on to the comment
     if (params.comment) {
         const parentComment = await Comment.findById(params.comment);
+        console.log("parentComment: " + parentComment)
         if (!parentComment) {
             throw "Comment not found";
         }
@@ -110,6 +108,9 @@ async function create(params) {
         parentComment.comments.push(comment.id)
         await parentComment.save()
     }
+
+    //Save the comment
+    const savedComment = await comment.save()
 
     // save user
     return savedComment.getNewComment();
