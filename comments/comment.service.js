@@ -114,7 +114,7 @@ async function create(params) {
     }
 
     // save user
-    return savedComment.getNewComment();
+    return savedComment;
 }
 
 
