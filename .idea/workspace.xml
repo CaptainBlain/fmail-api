@@ -18,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/comments/comment.service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="109" column="5" lean-forward="true" selection-start-line="109" selection-start-column="5" selection-end-line="109" selection-end-column="5" />
+            <state relative-caret-position="349">
+              <caret line="96" column="38" lean-forward="true" selection-start-line="96" selection-start-column="38" selection-end-line="96" selection-end-column="38" />
               <folding>
                 <element signature="n#!!block;n#getForOwner#0" />
                 <element signature="n#!!block;n#update#0" />
@@ -172,12 +172,12 @@
       <workItem from="1570692955096" duration="581000" />
       <workItem from="1570722530903" duration="851000" />
       <workItem from="1571060498446" duration="8124000" />
-      <workItem from="1571404998329" duration="603000" />
+      <workItem from="1571404998329" duration="780000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39061000" />
+    <option name="totallyTimeSpent" value="39238000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1693" y="53" width="1795" height="1027" extended-state="0" />
@@ -322,8 +322,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/comments/comment.service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="109" column="5" lean-forward="true" selection-start-line="109" selection-start-column="5" selection-end-line="109" selection-end-column="5" />
+        <state relative-caret-position="349">
+          <caret line="96" column="38" lean-forward="true" selection-start-line="96" selection-start-column="38" selection-end-line="96" selection-end-column="38" />
           <folding>
             <element signature="n#!!block;n#getForOwner#0" />
             <element signature="n#!!block;n#update#0" />

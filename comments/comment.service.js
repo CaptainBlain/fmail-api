@@ -88,11 +88,6 @@ async function create(params) {
         comment.to = user.username
     }
 
-    //Push the comment on to the post
-    if (params.post) {
-        post.comments.push(savedComment)
-        await post.save()
-    }
 
     //Push the comment on to the comment
     if (params.comment) {
@@ -111,6 +106,12 @@ async function create(params) {
 
     //Save the comment
     const savedComment = await comment.save()
+
+    //Push the comment on to the post
+    if (params.post) {
+        post.comments.push(savedComment)
+        await post.save()
+    }
 
     // save user
     return savedComment.getNewComment();
