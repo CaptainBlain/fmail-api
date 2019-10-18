@@ -21,13 +21,13 @@ async function getForPost(id) {
     if (!post)
         throw "Post not found"
 
-    return await Comment.find({post: post._id}).select('-hash -__v').populate('owner', 'username');
+    return await Comment.find({post: post._id}).select('-hash -__v').populate('owner', 'username').sort({ createdDate: 'desc'});
 
 }
 
 async function getForComment(id) {
 
-    const comment = await Comment.findById(id).select('-hash').populate({ path: 'comments', populate: { path:'owner', model:'User', select: 'username'}, model: Comment });
+    const comment = await Comment.findById(id).select('-hash').populate({ path: 'comments', populate: { path:'owner', model:'User', select: 'username'}, model: Comment }).sort({ createdDate: 'desc'});
 
     if (!comment)
         throw "Comment not found"
@@ -83,6 +83,7 @@ async function create(params) {
         }
         comment.level = 0
         comment.post = post
+        comment.postId = post.id
         let user = await User.findById(post.owner).select('username')
         comment.to = user.username
     }
@@ -105,6 +106,7 @@ async function create(params) {
         let user = await User.findById(parentComment.owner).select('username')
         comment.level = parentComment.level + 1
         comment.to = user.username
+        comment.commentId = parentComment.id
         parentComment.comments.push(comment.id)
         await parentComment.save()
     }

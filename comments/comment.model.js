@@ -6,6 +6,8 @@ const schema = new Schema({
     to: { type: String },
     post: { type: Schema.Types.ObjectId, ref: 'Post'},
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    postId: { type: String },
+    commentId: { type: String },
     subject: { type: String, required: false },
     content: { type: String, required: false },
     votes: { type: Schema.Types.ObjectId, ref: 'User' },
