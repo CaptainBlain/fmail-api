@@ -99,11 +99,13 @@ async function getForOwner(params) {
 
     console.log(params.userId)
 
+    const user = await User.findById(params.userId);
+
     let page = params.page
 
     let limit = 50
 
-    let postsArray = await Post.find({owner: {$in:params.userId}})
+    let postsArray = await Post.find().where('owner').equals(user)
         .populate('owner','-hash -_id -__v -starred -createdDate')
         .limit(limit)
         .skip(limit*page)
