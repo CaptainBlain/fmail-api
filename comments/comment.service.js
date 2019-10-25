@@ -47,16 +47,12 @@ async function getById(id) {
 
 async function getForOwner(params) {
 
-    console.log(params.id)
-
     return await Post.find({owner: {$in:params.id}}).select('-hash');
 }
 
 
 async function create(params) {
     // validate
-
-    console.log(params)
 
     if (!params.owner) {
         throw "Owner required";
@@ -77,7 +73,6 @@ async function create(params) {
     let post;
     if (params.post) {
         post = await Post.findById(params.post);
-        console.log("post", post)
         if (!post) {
             throw "Post not found";
         }
@@ -92,7 +87,6 @@ async function create(params) {
     //Push the comment on to the comment
     if (params.comment) {
         const parentComment = await Comment.findById(params.comment);
-        console.log("parentComment: " + parentComment)
         if (!parentComment) {
             throw "Comment not found";
         }
