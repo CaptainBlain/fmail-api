@@ -1,7 +1,7 @@
 const db = require('_helpers/db');
 const User = db.User;
 const Post = db.Post;
-const limit = 50
+const limit = 10
 
 module.exports = {
     getAll,
