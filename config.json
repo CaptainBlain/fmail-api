@@ -1,4 +1,0 @@
-﻿{
-    "connectionString": "mongodb://admin:password@localhost:27017/fmaildatabase",
-    "secret": "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING"
-}
